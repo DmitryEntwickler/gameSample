@@ -14,7 +14,7 @@ data class Monster(
         return false
     }
 
-    fun go(listOfWalls: List<Wall>): Int {
+    fun goHorizontal(listOfWalls: List<Wall>): Int {
 
         var canGoRight: Boolean = false
         var canGoLeft: Boolean = false
@@ -44,6 +44,38 @@ data class Monster(
         if (canGoRight) return mX.plus(1)
         if (canGoLeft) return mX.minus(1)
         else return mX
+    }
+
+    fun goVertical(listOfWalls: List<Wall>): Int {
+
+        var canGoUp: Boolean = false
+        var canGoDown: Boolean = false
+
+        if (mDirection==Directions.UP){
+            listOfWalls.forEach() lb@{ Wall ->
+                if (mY - 1 == Wall.mY && mX == Wall.mX){
+                    canGoUp = false
+                    mDirection = Directions.DOWN
+                    return mY
+                }
+                else canGoUp = true
+            }
+        }
+        if (mDirection==Directions.DOWN){
+            listOfWalls.forEach() lb@{ Wall ->
+                if (mY + 1 == Wall.mY && mX == Wall.mX){
+                    canGoDown = false
+                    mDirection = Directions.UP
+                    return mY
+                }
+                else canGoDown = true
+            }
+        }
+
+
+        if (canGoUp) return mY.minus(1)
+        if (canGoDown) return mY.plus(1)
+        else return mY
     }
 
 }
