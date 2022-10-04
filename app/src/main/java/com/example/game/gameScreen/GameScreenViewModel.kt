@@ -17,15 +17,17 @@ class GameScreenViewModel : ViewModel() {
 
     val mListOfMonsters = MutableLiveData(
         listOf(
-            Monster(11, 8, mNr = 1, mDirection = Directions.RIGHT),
-            Monster(4, 11, mNr = 1, mDirection = Directions.LEFT)
+            Monster(10, 3, mNr = 1, mDirection = Directions.LEFT),
+            Monster(14, 8, mNr = 1, mDirection = Directions.RIGHT),
+            Monster(4, 11, mNr = 1, mDirection = Directions.LEFT),
+            Monster(8, 15, mNr = 1, mDirection = Directions.RIGHT),
+            Monster(17, 17, mNr = 1, mDirection = Directions.RIGHT)
         )
     )
 
     val mListOfWalls = mutableListOf<Wall>(
-        Wall(15, 8),
         Wall(10, 8),
-        Wall(3, 3),
+        Wall(6, 3),
         Wall(5, 5)
     )
 
@@ -46,7 +48,7 @@ class GameScreenViewModel : ViewModel() {
 
             viewModelScope.launch {
                 while (mGameActive.value == true) {
-                    delay(250)
+                    delay(150)
 
                     // each timerTick create new ListOfMonsters out of the old one
                     mListOfMonsters.value?.let { oldList ->
