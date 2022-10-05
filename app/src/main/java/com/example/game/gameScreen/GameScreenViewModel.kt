@@ -31,7 +31,8 @@ class GameScreenViewModel : ViewModel() {
     val mListOfWalls = mutableListOf<Wall>(
         Wall(10, 8),
         Wall(6, 3),
-        Wall(5, 5)
+        Wall(5, 5),
+        Wall(9, 14),
     )
 
     init {

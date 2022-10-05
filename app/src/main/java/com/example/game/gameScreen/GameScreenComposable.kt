@@ -39,7 +39,7 @@ fun GameScreenComposable(mGameScreenViewModel: GameScreenViewModel) {
     var mGameFieldSize: Int? by remember { mutableStateOf(0) }
 
     var mImageWall = ImageBitmap.imageResource(id = R.drawable.wall)
-    val mBitmap: Bitmap = Bitmap.createBitmap(40,40, Bitmap.Config.ARGB_8888)
+    var mImageMonster = ImageBitmap.imageResource(id = R.drawable.monster)
 
 
     Column {
@@ -104,14 +104,12 @@ fun GameScreenComposable(mGameScreenViewModel: GameScreenViewModel) {
             // draw all Monsters
             mListOfMosters?.let {
                 it.forEach() { monster ->
-                    println("-> $it")
-                    drawRect(
-                        color = Color.Blue,
-                        topLeft = Offset(
-                            monster.mX * squareSize.toFloat(),
-                            monster.mY * squareSize.toFloat(),
-                        ),
-                        size = Size(squareSize.toFloat(), squareSize.toFloat())
+                    drawImage(
+                        image = mImageMonster,
+                        srcSize = IntSize(30,30),
+                        srcOffset = IntOffset.Zero,
+                        dstOffset =  IntOffset(monster.mX * squareSize, monster.mY * squareSize),
+                        dstSize =   IntSize(squareSize,squareSize),
                     )
                 }
             }
