@@ -1,5 +1,6 @@
 package com.example.game.gameScreen
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
@@ -13,9 +14,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asAndroidBitmap
+import androidx.compose.ui.graphics.drawscope.DrawStyle
+import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.game.GlobalStorage
+import com.example.game.R
 
 @Composable
 fun GameScreenComposable(mGameScreenViewModel: GameScreenViewModel) {
@@ -29,6 +37,10 @@ fun GameScreenComposable(mGameScreenViewModel: GameScreenViewModel) {
     var mCanvasHeight: Float? by remember { mutableStateOf(0F) }
     var mSquareSize: Int? by remember { mutableStateOf(0) }
     var mGameFieldSize: Int? by remember { mutableStateOf(0) }
+
+    var mImageWall = ImageBitmap.imageResource(id = R.drawable.wall)
+    val mBitmap: Bitmap = Bitmap.createBitmap(40,40, Bitmap.Config.ARGB_8888)
+
 
     Column {
         Text("Canvas Size in px: $mCanvasWidth x $mCanvasHeight")
@@ -62,12 +74,15 @@ fun GameScreenComposable(mGameScreenViewModel: GameScreenViewModel) {
 
             // draw all Walls
             mListOfWalls.forEach(){
-                drawRect(
-                    color = Color.Black,
-                    topLeft = Offset(x = (it.mX * squareSize).toFloat(), y = (it.mY * squareSize).toFloat()),
-                    size = Size(squareSize.toFloat(), squareSize.toFloat())
+                drawImage(
+                    image = mImageWall,
+                    srcSize = IntSize(30,30),
+                    srcOffset = IntOffset.Zero,
+                    dstOffset =  IntOffset(it.mX * squareSize, it.mY * squareSize),
+                    dstSize =   IntSize(squareSize,squareSize),
                 )
             }
+
 
             // Net vertical
             for (x in 0..gameFieldSize step (gameFieldSize / mNumberOfSquares).toInt()) {
